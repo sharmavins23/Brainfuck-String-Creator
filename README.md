@@ -8,9 +8,45 @@ actual generated Brainfuck code; The generator sacrifices compile time largely
 to increase memory space to an extreme amount. There are some optimizations on
 string length via looping for simplicity, however.
 
+Special thanks to [pocmo](https://github.com/pocmo/) for the
+[Python-Brainfuck](https://github.com/pocmo/Python-Brainfuck) interpretor.
+
 ## Why?
 
 Why not?
+
+## How?
+
+The naive implementation was to simply convert the ASCII value to the
+corresponding decimal values, and concatenate a series of increment, print, and
+decrement instructions to print out words. Needless to say, this is absurdly
+complicated to read, and ended up in extremely large code.
+
+The simpler solution is to iterate and generate words. Generally, this would be
+done easiest by finding a common factor between characters and generating a word
+using one singular loop. However, the solution I've opted to implement is to
+simply generate the code for each character separately. This results in every
+character being comprised of the follows:
+
+```bf
++a+[>++++++++++<-]+b+   Increment a series of counters for the number
+.<                      Print the byte, and shift back to the counter
++a+[>----------<-]-b-   Decrement a series of counters for the number.
+```
+
+In this example, `a` and `b` represent the number of repetitions of the
+surrounding characters. For calculating `a` and `b`, one can simply use the
+following:
+
+```py
+a = num // 10
+b = num %  10
+```
+
+This generates the individual characters, and the code for multiple characters
+can simply be concatenated. No, this is NOT the most optimal way of writing
+Brainfuck code, and it's not even close. It's simply a way that one can
+streamline the procedure.
 
 # License TL;DR
 
