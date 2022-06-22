@@ -73,10 +73,14 @@ def main():
 
     bfString = convertStringToBF(stringToConvert)
 
-    print("The corresponding BF instructions are:")
-    print(bfString)
+    printBF("\n")
 
-    print("This sourcecode evaluated in Brainfuck is:")
+    printBF("The corresponding BF instructions are:\n")
+    printBF(bfString)
+
+    printBF("\n")
+
+    printBF("This sourcecode evaluated in Brainfuck is: ")
     printBF(stringToConvert)
 
 
